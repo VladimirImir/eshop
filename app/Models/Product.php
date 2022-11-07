@@ -26,4 +26,9 @@ class Product extends Model
         'meta_keywords',
         'meta_description'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'cate_id','id');
+    }
 }
