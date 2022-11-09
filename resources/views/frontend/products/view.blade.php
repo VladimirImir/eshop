@@ -37,22 +37,30 @@
                     @else
                         <label class="badge bg-danger">Out of stock</label>
                     @endif
+                    {{--<input type="hidden" class="productid" value="{{ $products->id }}">--}}
                     <div class="row mt-2">
                         <div class="col-md-2">
                             <label for="Quantity">Quantity</label>
-                            <div class="input-group text-center mb-3">
+                            <div class="input-group text-center mb-3" >
                                 <span class="input-group-text">-</span>
-                                <input type="text" name="quantity" value="1" class="form-control" />
+                                <input type="text" name="quantity" value="1" class="form-control text-center" />
                                 <span class="input-group-text">+</span>
                             </div>
                         </div>
                         <div class="col-md-10">
                             <br/>
-                            <button type="button" class="btn btn-success me-3 float-start">Add to Wishlist</button>
-                            <button type="button" class="btn btn-primary me-3 float-start">Add to Card</button>
+                            <button type="button" class="btn btn-success me-3 float-start">Add to Wishlist <i class="fa fa-heart"></i> </button>
+                            <button type="button" class="btn btn-primary me-3 float-start">Add to Card <i class="fa fa-shopping-cart"></i> </button>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-12">
+                <hr>
+                <h3>Description</h3>
+                <p class="mt-3">
+                    {!! $products->description !!}
+                </p>
             </div>
         </div>
     </div>
