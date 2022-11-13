@@ -5,7 +5,20 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
+    <div class="py-3 mb-4 shadow-sm bg-warning border-top">
+        <div class="container">
+            <h6 class="mb-0">
+                <a href="{{ url('/') }}">
+                    Home
+                </a> /
+                <a href="{{ url('checkout') }}">
+                    Checkout
+                </a>
+            </h6>
+        </div>
+    </div>
+
+    <div class="container mt-3">
         <div class="row">
             <div class="col-md-7">
                 <div class="card">
@@ -76,13 +89,12 @@
                                     <td>{{ $item->products->name }}</td>
                                     <td>{{ $item->prod_qty }}</td>
                                     <td>{{ $item->products->selling_price }}</td>
-
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                         <hr>
-                        <button class="btn btn-primary float-end">Place Order</button>
+                        <button class="btn btn-primary w-100">Place Order</button>
                     </div>
                 </div>
             </div>
