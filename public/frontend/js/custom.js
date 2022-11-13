@@ -10,8 +10,6 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-
         $.ajax({
             method: "POST",
             url: "/add-to-cart",
@@ -26,9 +24,7 @@ $(document).ready(function () {
 
 
     });
-
-
-        $('.increment-btn').click(function (e) {
+    $('.increment-btn').click(function (e) {
             e.preventDefault();
 
             /*var inc_value = $('.qty-input').val();*/
@@ -43,8 +39,7 @@ $(document).ready(function () {
                 $(this).closest('.product_data').find('.qty-input').val(value);
             }
         });
-
-        $('.decrement-btn').click(function (e) {
+    $('.decrement-btn').click(function (e) {
             e.preventDefault();
 
             /*var dec_value = $('.qty-input').val();*/
@@ -60,14 +55,16 @@ $(document).ready(function () {
             }
     });
 
-        $('.delete-cart-item').click(function (e) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('.delete-cart-item').click(function (e) {
             e.preventDefault();
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+
 
             var prod_id = $(this).closest('.product_data').find('.prod_id').val();
             $.ajax({
@@ -83,4 +80,23 @@ $(document).ready(function () {
                 }
             });
         });
+
+    $('.changeQuantity').click(function (e) {
+        e.preventDefault();
+
+        var prod_id = $(this).closest('.product_data').find('.prod_id').val();
+        var qty = $(this).closest('.product_data').find('.qty-input').val();
+        data = {
+            'prod_id' : prod_id,
+            'prod_qty' : qty,
+        }
+        $.ajax({
+            method: "POST",
+            url: "update-cart",
+            data: data,
+            success: function (response){
+                window.location.reload();
+            }
+        });
+    });
 });
