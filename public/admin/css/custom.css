@@ -20,3 +20,14 @@
     -moz-appearance: none;
     appearance: none;
 }
+
+.order-details label{
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.order-details div{
+    font-size: 14px;
+    padding: 5px  !important;
+    margin-bottom: 6px;
+}
