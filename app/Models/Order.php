@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,8 +13,6 @@ class Order extends Model
     protected $table = 'orders';
     protected $fillable = [
         'user_id',
-        'total_price',
-        'fname',
         'fname',
         'lname',
         'email',
@@ -24,8 +23,14 @@ class Order extends Model
         'state',
         'country',
         'pincode',
+        'total_price',
         'status',
         'message',
         'tracking_no',
     ];
+
+    public function orderitems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

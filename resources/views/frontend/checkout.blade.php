@@ -77,26 +77,36 @@
                         <div class="card-body">
                             <h6>Order Details</h6>
                             <hr>
-                            <table class="table table-striped table-bordered">
-                                <thread>
+                            @php $total = 0; @endphp
+                            @if($cartitems->count() > 0)
+                                <table class="table table-striped table-bordered">
+                                    <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Quantity</th>
                                         <th>Price</th>
                                     </tr>
-                                </thread>
-                                <tbody>
-                                @foreach($cartitems as $item)
-                                    <tr>
-                                        <td>{{ $item->products->name }}</td>
-                                        <td>{{ $item->prod_qty }}</td>
-                                        <td>{{ $item->products->selling_price }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <hr>
-                            <button type="submit" class="btn btn-primary w-100">Place Order</button>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($cartitems as $item)
+                                        <tr>
+                                            @php $total += ($item->products->selling_price * $item->prod_qty) @endphp
+                                            <td>{{ $item->products->name }}</td>
+                                            <td>{{ $item->prod_qty }}</td>
+                                            <td>{{ $item->products->selling_price }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                <h6 class="px-2">Grand Total  <span class="float-end">UAH {{ $total }} </span></h6>
+                                <hr>
+                                <input type="hidden" name="payment_mode" value="COD">
+                                <button type="submit" class="btn btn-success w-100 mb-2">Place Order | COD</button>
+                                {{--<button type="button" class="btn btn-primary w-100 mb-2 razorpay_btn">Pay with Razorpay</button>
+                                <div id="paypal-button-container"></div>--}}
+                            @else
+                                <h4 class="text-center">No products in cart</h4>
+                            @endif
                         </div>
                     </div>
                 </div>

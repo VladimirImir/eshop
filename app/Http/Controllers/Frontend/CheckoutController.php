@@ -34,7 +34,6 @@ class CheckoutController extends Controller
     {
         $order = new Order();
         $order->user_id = Auth::id();
-        $order->total_price = $request->input('total_price');
         $order->fname = $request->input('fname');
         $order->lname = $request->input('lname');
         $order->email = $request->input('email');
@@ -45,17 +44,31 @@ class CheckoutController extends Controller
         $order->state = $request->input('state');
         $order->country = $request->input('country');
         $order->pincode = $request->input('pincode');
-        $order->tracking_no = 'vova'.rand(1111,9999);
+
+        /*$order->payment_mode = $request->input('payment_mode');
+        $order->payment_id = $request->input('payment_id');*/
+
+        // To Calculate the total price
+        $total = 0;
+        $cartitems_total = Cart::where('user_id', Auth::id())->get();
+        foreach($cartitems_total as $prod)
+        {
+            $total += $prod->products->selling_price * $prod->prod_qty;
+        }
+
+        $order->total_price = $total;
+
+        $order->tracking_no = 'Vova'.rand(1111,9999);
         $order->save();
 
         $cartitems = Cart::where('user_id', Auth::id())->get();
-        foreach ($cartitems as $item)
+        foreach($cartitems as $item)
         {
             OrderItem::create([
                 'order_id'=> $order->id,
-                'prod_id'=> $item->prod_id,
+                'prod_id' => $item->prod_id,
                 'qty'=> $item->prod_qty,
-                'price'=> $item->products->selling_price,
+                'price' => $item->products->selling_price,
             ]);
 
             $prod = Product::where('id', $item->prod_id)->first();
@@ -63,7 +76,7 @@ class CheckoutController extends Controller
             $prod->update();
         }
 
-        if (Auth::user()->address1 == NULL)
+        if(Auth::user()->address1 == NULL)
         {
             $user = User::where('id', Auth::id())->first();
             $user->name = $request->input('fname');

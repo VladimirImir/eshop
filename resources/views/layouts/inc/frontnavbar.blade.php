@@ -33,7 +33,12 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ url('my-orders') }}">
+                                    My Orders
+                                </a>
+                            </li>
                             <li>
                                 <a class="dropdown-item" href="#">
                                     My profile
