@@ -15,12 +15,14 @@
                     @foreach ($featured_product as $prod)
                         <div class="item">
                             <div class="card">
-                                <img src="{{ asset('assets/uploads/products/'.$prod->image) }}" alt="Product image">
-                                <div class="card-body">
-                                    <h5>{{ $prod->name }}</h5>
-                                    <span class="float-start"> UAH {{ $prod->selling_price  }}</span>
-                                    <span class="float-end"> <s> UAH {{ $prod->original_price  }} </s></span>
-                                </div>
+                                <a href="{{ url('category/'.$prod->category->slug.'/'.$prod->slug) }}">
+                                    <img src="{{ asset('assets/uploads/products/'.$prod->image) }}" alt="Product image">
+                                    <div class="card-body">
+                                        <h5>{{ $prod->name }}</h5>
+                                        <span class="float-start">{{ $prod->selling_price }}</span>
+                                        <span class="float-end"> <s> {{ $prod->original_price }}</s></span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     @endforeach
